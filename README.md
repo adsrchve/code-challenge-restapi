@@ -21,7 +21,7 @@ RESTful API for a Simple Q&A Forum application that helps users ask questions an
 1. Clone the repository
 ```
    git clone https://github.com/adsrchve/code-challenge-restapi.git
-   cd repo
+   cd code-challenge-restapi
 ```
 
 2. Install dependencies

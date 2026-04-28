@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards } from 
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { CreateThreadDto } from './dto/create-thread';
 import { ThreadsService } from './threads.service';
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Threads')
 @Controller('api/threads')
@@ -11,6 +11,9 @@ export class ThreadsController {
 
     @ApiBearerAuth()
     @ApiOperation({ summary: 'Create a new thread' })
+    @ApiResponse({ status: 201, description: 'Thread created successfully' })
+    @ApiResponse({ status: 400, description: 'Bad Request: Invalid input' })
+    @ApiResponse({ status: 401, description: 'Unauthorized: Missing or invalid token' })
     @UseGuards(JwtAuthGuard)
     @Post()
     create(@Req() req, @Body() dto: CreateThreadDto) {
@@ -18,6 +21,7 @@ export class ThreadsController {
     }
 
     @ApiOperation({ summary: 'See all threads' })
+    @ApiResponse({ status: 200, description: 'List of all threads retrieved successfully' })
     @Get()
     findAll() {
         return this.threadsService.findAll()
@@ -25,6 +29,8 @@ export class ThreadsController {
 
     @ApiBearerAuth()
     @ApiOperation({ summary: 'See all threads created by me' })
+    @ApiResponse({ status: 200, description: 'List of my threads retrieved successfully' })
+    @ApiResponse({ status: 401, description: 'Unauthorized: Missing or invalid token' })
     @UseGuards(JwtAuthGuard)
     @Get('my-threads')
     findMyThreads(@Req() req) {
@@ -32,6 +38,8 @@ export class ThreadsController {
     }
 
     @ApiOperation({ summary: 'See thread by ID' })
+    @ApiResponse({ status: 200, description: 'Thread retrieved successfully' })
+    @ApiResponse({ status: 404, description: 'Not Found: Thread does not exist' })
     @Get(':id')
     findOne(@Param('id') id: string) {
         return this.threadsService.findOne(id)
@@ -39,6 +47,10 @@ export class ThreadsController {
 
     @ApiBearerAuth()
     @ApiOperation({ summary: 'Update my thread' })
+    @ApiResponse({ status: 200, description: 'Thread updated successfully' })
+    @ApiResponse({ status: 401, description: 'Unauthorized: Missing or invalid token' })
+    @ApiResponse({ status: 403, description: 'Forbidden: Not the thread owner' })
+    @ApiResponse({ status: 404, description: 'Not Found: Thread does not exist' })
     @UseGuards(JwtAuthGuard)
     @Put(':id')
     update(@Req() req, @Param('id') id: string, @Body() dto: CreateThreadDto) {
@@ -47,6 +59,10 @@ export class ThreadsController {
 
     @ApiBearerAuth()
     @ApiOperation({ summary: 'Delete my thread' })
+    @ApiResponse({ status: 200, description: 'Thread deleted successfully' })
+    @ApiResponse({ status: 401, description: 'Unauthorized: Missing or invalid token' })
+    @ApiResponse({ status: 403, description: 'Forbidden: Not the thread owner' })
+    @ApiResponse({ status: 404, description: 'Not Found: Thread does not exist' })
     @UseGuards(JwtAuthGuard)
     @Delete(':id')
     remove(@Req() req, @Param('id') id: string) {
