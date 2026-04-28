@@ -1,98 +1,110 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Q&A Forum API — Code Challenge Milestone 2
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+RESTful API for a Simple Q&A Forum application that helps users ask questions and participate in discussions.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Tech Stack
 
-## Description
+- **Framework:** NestJS (Node.js + TypeScript)
+- **Database:** PostgreSQL via Prisma ORM (Prisma Cloud)
+- **Authentication:** JWT (JSON Web Token)
+- **Documentation:** Swagger / OpenAPI
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Getting Started
 
-## Project setup
+### Prerequisites
+- Node.js
+- pnpm
+- PostgreSQL database
 
-```bash
-$ pnpm install
+### Installation
+
+1. Clone the repository
+```
+   git clone https://github.com/adsrchve/code-challenge-restapi.git
+   cd repo
 ```
 
-## Compile and run the project
-
-```bash
-# development
-$ pnpm run start
-
-# watch mode
-$ pnpm run start:dev
-
-# production mode
-$ pnpm run start:prod
+2. Install dependencies
+```
+   pnpm install
 ```
 
-## Run tests
-
-```bash
-# unit tests
-$ pnpm run test
-
-# e2e tests
-$ pnpm run test:e2e
-
-# test coverage
-$ pnpm run test:cov
+3. Setup environment variables
+```
+   cp .env.example .env
+```
+   Fill in your `.env`:
+```env
+   DATABASE_URL=your_database_url
+   JWT_SECRET=your_jwt_secret
+   PORT=3000
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ pnpm install -g @nestjs/mau
-$ mau deploy
+4. Generate Prisma client
+```
+   npx prisma generate
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+5. Run migrations
+```
+   npx prisma migrate dev
+```
 
-## Resources
+6. Seed dummy data
+```
+   npx prisma db seed
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+7. Start the server
+```
+   pnpm start:dev
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+## API Documentation
 
-## Support
+Swagger UI available at: http://localhost:3000/api/docs
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## API Endpoints
 
-## Stay in touch
+### Auth & User
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| POST | /api/auth/register | Register a new user (password is hashed) | ❌ |
+| POST | /api/auth/login | Login and return JWT token | ❌ |
+| GET | /api/users/:id | View a user's public profile by ID | ❌ |
 
-## License
+### Threads
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| POST | /api/threads | Create a new thread | ✅ |
+| GET | /api/threads | List all threads | ❌ |
+| GET | /api/threads/my-threads | List threads of logged-in user | ✅ |
+| GET | /api/threads/:id | View a specific thread by ID | ❌ |
+| PUT | /api/threads/:id | Update a thread (owner only) | ✅ |
+| DELETE | /api/threads/:id | Delete a thread (owner only) | ✅ |
+
+## Validation & Error Handling
+
+| Status Code | Description |
+|-------------|-------------|
+| 400 | Bad Request — empty or invalid input |
+| 401 | Unauthorized — missing or invalid token |
+| 403 | Forbidden — not the owner of the thread |
+| 404 | Not Found — resource doesn't exist |
+| 500 | Internal Server Error |
+
+## Database Relations
+
+One-to-many relationship between `users` and `threads`:
+- One user can create multiple threads
+- Each thread belongs to exactly one user
+
+## Environment Variables
+
+| Variable | Description |
+|----------|-------------|
+| DATABASE_URL | PostgreSQL connection string |
+| JWT_SECRET | Secret key for signing JWT tokens |
+| PORT | Server port (default: 3000) |
