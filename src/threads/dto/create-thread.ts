@@ -7,5 +7,5 @@ export class CreateThreadDto {
 
     @IsString()
     @IsNotEmpty()
-    body: string
+    content: string
 }

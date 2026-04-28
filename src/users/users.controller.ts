@@ -10,7 +10,7 @@ export class UsersController {
         const user = await this.usersService.findByID(id)
         if (!user) throw new NotFoundException('User not found')
 
-        const { password, ...result } = user
+        const { password_hash, ...result } = user
         return result
     }
 }

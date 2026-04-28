@@ -11,28 +11,28 @@ export class ThreadsService {
         return this.prisma.thread.create({
             data: {
                 title: dto.title,
-                body: dto.body,
-                authorId: userId,
+                content: dto.content,
+                user_id: userId,
             }
         })
     }
 
     async findAll() {
         return this.prisma.thread.findMany({
-            include: { author: { select: { id: true, username: true } } }
+            include: { user: { select: { id: true, username: true } } }
         })
     }
 
     async findMyThreads(userId: string) {
         return this.prisma.thread.findMany({
-            where: { authorId: userId },
+            where: { user_id: userId },
         })
     }
 
     async findOne(id: string) {
         const thread = await this.prisma.thread.findUnique({
             where: { id },
-            include: { author: { select: { id: true, username: true } } }
+            include: { user: { select: { id: true, username: true } } }
         })
         if (!thread) throw new NotFoundException('Thread not found')
         return thread
@@ -40,7 +40,7 @@ export class ThreadsService {
 
     async update(userId: string, id: string, dto: CreateThreadDto) {
         const thread = await this.findOne(id)
-        if (thread.authorId !== userId) throw new ForbiddenException('Access denied')
+        if (thread.user_id !== userId) throw new ForbiddenException('Access denied')
         return this.prisma.thread.update({
             where: { id },
             data: dto,
@@ -49,7 +49,7 @@ export class ThreadsService {
 
     async remove(userId: string, id: string) {
         const thread = await this.findOne(id)
-        if (thread.authorId !== userId) throw new ForbiddenException('Access denied')
+        if (thread.user_id !== userId) throw new ForbiddenException('Access denied')
         return this.prisma.thread.delete({
             where: { id } 
         })
